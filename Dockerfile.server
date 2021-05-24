@@ -2,7 +2,7 @@ FROM node:14
 
 RUN mkdir /app
 
-COPY server /app
+COPY ./ /app
 
 WORKDIR /app
 
