@@ -1,0 +1,39 @@
+{
+	"name": "sol-git-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "N_ENV=dev ts-node-dev --transpile-only --no-notify src/main.ts",
+		"deploy": "ts-node-dev --transpile-only --no-notify src/main.ts",
+		"build": "tsc -p ./",
+		"start": "N_ENV=product ts-node dist/src/main.js",
+		"prisma:gen": "npx prisma generate",
+		"prisma:migrate": "npx prisma migrate dev --name add --preview-feature"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@prisma/client": "^2.21.2",
+		"apollo-server": "^2.19.1",
+		"axios": "^0.21.1",
+		"dataloader": "^2.0.0",
+		"dotenv": "^8.2.0",
+		"graphql": "^15.4.0",
+		"jsonwebtoken": "^8.5.1"
+	},
+	"devDependencies": {
+		"@types/jsonwebtoken": "^8.5.0",
+		"@types/node": "^14.14.42",
+		"eslint-config-prettier": "^7.1.0",
+		"eslint-plugin-prettier": "^3.3.1",
+		"nexus": "^1.0.0",
+		"nexus-plugin-prisma": "^0.34.1",
+		"prettier": "^2.2.1",
+		"prisma": "^2.21.2",
+		"ts-node": "^9.1.1",
+		"ts-node-dev": "^1.1.1",
+		"typescript": "^4.1.3"
+	}
+}

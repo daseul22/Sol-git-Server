@@ -1,0 +1,11 @@
+version: "3.0"
+
+services:
+    server:
+        image: sol-git-server
+        build:
+            context: ./
+            dockerfile: Dockerfile.server
+        restart: always
+        network_mode: "host"
+        command: npm run start

@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  name        String
+  email       String      @unique
+  profileUrl  String
+  introduce   String?
+  originJob   String
+  work        String?
+  company     String?
+  interestJob String
+  folders     Folder[]
+  actions     Action[]
+  follows     Follow[]
+  tags        UserOnTag[]
+}
+
+model Folder {
+  id         Int      @id @default(autoincrement())
+  folderName String
+  actions    Action[]
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     Int?
+}
+
+model Clip {
+  id        Int      @id @default(autoincrement())
+  url       String
+  memo      String?
+  createdAt DateTime @default(now())
+  actions   Action[]
+}
+
+model Follow {
+  id       Int @id @default(autoincrement())
+  follower Int
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model Tag {
+  id    Int         @id @default(autoincrement())
+  tag   String
+  kind  String
+  users UserOnTag[]
+}
+
+model Action {
+  id Int @id @default(autoincrement())
+
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  isUseful  Boolean  @default(false)
+  isSave    Boolean  @default(false)
+  isPrivate Boolean  @default(false)
+  isRead    Boolean  @default(false)
+  readAt    DateTime @default(now())
+  Folder    Folder?  @relation(fields: [folderId], references: [id])
+  folderId  Int?
+  Clip      Clip?    @relation(fields: [clipId], references: [id])
+  clipId    Int?
+
+  @@unique([userId, clipId], name: "ids")
+}
+
+model UserOnTag {
+  id Int @id @default(autoincrement())
+
+  Tag    Tag  @relation(fields: [tagId], references: [id])
+  tagId  Int
+  User   User @relation(fields: [userId], references: [id])
+  userId Int
+}

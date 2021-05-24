@@ -1,0 +1,21 @@
+version: 2.1
+jobs:
+ build:
+  machine: true
+  steps:
+   - checkout
+   - add_ssh_keys:
+      fingerprints:
+       - "8b:c1:63:ce:e0:cc:37:84:1a:e9:e8:1a:ba:7f:64:1c"
+   - run:
+      name: build
+      command: |
+       set -x
+       ssh ${host} ${script}
+workflows:
+ build:
+  jobs:
+   - build:
+     filters:
+      branches:
+       only: main

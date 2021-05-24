@@ -1,0 +1,15 @@
+FROM node:14
+
+RUN mkdir /app
+
+COPY server /app
+
+WORKDIR /app
+
+RUN npm install
+
+RUN npm run prisma:gen
+
+RUN npm run deploy
+
+RUN npm run build
